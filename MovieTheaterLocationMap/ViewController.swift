@@ -89,6 +89,7 @@ class ViewController: UIViewController {
             var annotationList: [MKAnnotation] = []
             for theater in TheaterList().mapAnnotations {
                 let annotation = MKPointAnnotation()
+                annotation.title = theater.location
                 annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
                 annotationList.append(annotation)
             }
@@ -99,6 +100,7 @@ class ViewController: UIViewController {
             for theater in TheaterList().mapAnnotations {
                 if theater.type == "롯데시네마" {
                     let annotation = MKPointAnnotation()
+                    annotation.title = theater.location
                     annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
                     annotationList.append(annotation)
                 }
@@ -110,6 +112,7 @@ class ViewController: UIViewController {
             for theater in TheaterList().mapAnnotations {
                 if theater.type == "메가박스" {
                     let annotation = MKPointAnnotation()
+                    annotation.title = theater.location
                     annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
                     annotationList.append(annotation)
                 }
@@ -121,6 +124,7 @@ class ViewController: UIViewController {
             for theater in TheaterList().mapAnnotations {
                 if theater.type == "CGV" {
                     let annotation = MKPointAnnotation()
+                    annotation.title = theater.location
                     annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
                     annotationList.append(annotation)
                 }
