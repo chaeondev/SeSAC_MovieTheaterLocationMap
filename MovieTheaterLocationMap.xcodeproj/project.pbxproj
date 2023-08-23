@@ -13,6 +13,8 @@
 		DE4EEE2E2A95E2EE002ECBAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE4EEE2C2A95E2EE002ECBAB /* Main.storyboard */; };
 		DE4EEE302A95E2F0002ECBAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE4EEE2F2A95E2F0002ECBAB /* Assets.xcassets */; };
 		DE4EEE332A95E2F0002ECBAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE4EEE312A95E2F0002ECBAB /* LaunchScreen.storyboard */; };
+		DE4EEE3C2A95E367002ECBAB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DE4EEE3B2A95E367002ECBAB /* SnapKit */; };
+		DE4EEE3E2A95E3D9002ECBAB /* sampleCode_map.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4EEE3D2A95E3D9002ECBAB /* sampleCode_map.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,7 @@
 		DE4EEE2F2A95E2F0002ECBAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE4EEE322A95E2F0002ECBAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE4EEE342A95E2F0002ECBAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE4EEE3D2A95E3D9002ECBAB /* sampleCode_map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sampleCode_map.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE4EEE3C2A95E367002ECBAB /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +63,7 @@
 				DE4EEE262A95E2EE002ECBAB /* AppDelegate.swift */,
 				DE4EEE282A95E2EE002ECBAB /* SceneDelegate.swift */,
 				DE4EEE2A2A95E2EE002ECBAB /* ViewController.swift */,
+				DE4EEE3D2A95E3D9002ECBAB /* sampleCode_map.swift */,
 				DE4EEE2C2A95E2EE002ECBAB /* Main.storyboard */,
 				DE4EEE2F2A95E2F0002ECBAB /* Assets.xcassets */,
 				DE4EEE312A95E2F0002ECBAB /* LaunchScreen.storyboard */,
@@ -83,6 +88,9 @@
 			dependencies = (
 			);
 			name = MovieTheaterLocationMap;
+			packageProductDependencies = (
+				DE4EEE3B2A95E367002ECBAB /* SnapKit */,
+			);
 			productName = MovieTheaterLocationMap;
 			productReference = DE4EEE232A95E2EE002ECBAB /* MovieTheaterLocationMap.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = DE4EEE1A2A95E2EE002ECBAB;
+			packageReferences = (
+				DE4EEE3A2A95E367002ECBAB /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = DE4EEE242A95E2EE002ECBAB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE4EEE2B2A95E2EE002ECBAB /* ViewController.swift in Sources */,
+				DE4EEE3E2A95E3D9002ECBAB /* sampleCode_map.swift in Sources */,
 				DE4EEE272A95E2EE002ECBAB /* AppDelegate.swift in Sources */,
 				DE4EEE292A95E2EE002ECBAB /* SceneDelegate.swift in Sources */,
 			);
@@ -356,6 +368,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DE4EEE3A2A95E367002ECBAB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DE4EEE3B2A95E367002ECBAB /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE4EEE3A2A95E367002ECBAB /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DE4EEE1B2A95E2EE002ECBAB /* Project object */;
 }
