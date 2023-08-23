@@ -15,17 +15,119 @@ class ViewController: UIViewController {
     let locationManager = CLLocationManager()
     
     let mapView = MKMapView()
+    let locationButton = {
+        let view = UIButton()
+        view.setImage(UIImage(systemName: "location"), for: .normal)
+        view.tintColor = .black
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 5
+        return view
+    }()
+    let filterButton = {
+        let view = UIButton()
+        view.setTitle("Theater Filter", for: .normal)
+        view.setTitleColor(UIColor.blue, for: .normal)
+        
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.topMargin.equalTo(30)
+            make.bottom.equalToSuperview()
+        }
+        
+        view.addSubview(locationButton)
+        locationButton.addTarget(self, action: #selector(locationButtonClicked), for: .touchUpInside)
+        locationButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(120)
+            make.trailing.equalToSuperview().inset(30)
+            make.size.equalTo(35)
+        }
+        
+        view.addSubview(filterButton)
+        filterButton.addTarget(self, action: #selector(filterButtonClicked), for: .touchUpInside)
+        filterButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(30)
+        }
+        
         locationManager.delegate = self
         
-        view.backgroundColor = .white
-        
-        
-        
         checkDeviceLocationAuthorization()
+        setAnnotation(type: .all)
+        
+    }
+    
+    @objc func locationButtonClicked() {
+        if self.locationManager.authorizationStatus == .denied {
+            showRequestLocationServiceAlert()
+        }
+    }
+    
+    @objc func filterButtonClicked() {
+        showTheaterOptionsAlert()
+    }
+    
+    func setRegionAndAnnotation(center: CLLocationCoordinate2D, title: String) {
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 500, longitudinalMeters: 500)
+        mapView.setRegion(region, animated: true)
+    }
+    
+    func setAnnotation(type: annotationType) {
+        
+        switch type {
+            
+        case .all:
+            mapView.removeAnnotations(mapView.annotations)
+            var annotationList: [MKAnnotation] = []
+            for theater in TheaterList().mapAnnotations {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
+                annotationList.append(annotation)
+            }
+            mapView.addAnnotations(annotationList)
+        case .lotte:
+            mapView.removeAnnotations(mapView.annotations)
+            var annotationList: [MKAnnotation] = []
+            for theater in TheaterList().mapAnnotations {
+                if theater.type == "롯데시네마" {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
+                    annotationList.append(annotation)
+                }
+            }
+            mapView.addAnnotations(annotationList)
+        case .mega:
+            mapView.removeAnnotations(mapView.annotations)
+            var annotationList: [MKAnnotation] = []
+            for theater in TheaterList().mapAnnotations {
+                if theater.type == "메가박스" {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
+                    annotationList.append(annotation)
+                }
+            }
+            mapView.addAnnotations(annotationList)
+        case .cgv:
+            mapView.removeAnnotations(mapView.annotations)
+            var annotationList: [MKAnnotation] = []
+            for theater in TheaterList().mapAnnotations {
+                if theater.type == "CGV" {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
+                    annotationList.append(annotation)
+                }
+            }
+            mapView.addAnnotations(annotationList)
+        }
+        
     }
 
     func checkDeviceLocationAuthorization() {
@@ -62,11 +164,14 @@ class ViewController: UIViewController {
             print("restricted")
         case .denied:
             print("denied")
+            let center = CLLocationCoordinate2D(latitude: 37.517829, longitude: 126.886270)
+            setRegionAndAnnotation(center: center, title: "청년취업사관학교")
         case .authorizedAlways:
             print("authorizedAlways")
         case .authorizedWhenInUse:
             print("authorizedWhenInUse")
             locationManager.startUpdatingLocation()
+            
         @unknown default:
             print("default")
         }
@@ -80,6 +185,10 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if let currentCoordinate = locations.last?.coordinate {
+            setRegionAndAnnotation(center: currentCoordinate, title: "내 위치")
+        }
 
     }
 
@@ -115,5 +224,30 @@ extension ViewController {
       requestLocationServiceAlert.addAction(goSetting)
 
       present(requestLocationServiceAlert, animated: true, completion: nil)
+    }
+    
+    func showTheaterOptionsAlert() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let mega = UIAlertAction(title: "메가박스", style: .default) { _ in
+            self.setAnnotation(type: .mega)
+        }
+        let lotte = UIAlertAction(title: "롯데시네마", style: .default) { _ in
+            self.setAnnotation(type: .lotte)
+        }
+        let cgv = UIAlertAction(title: "CGV", style: .default) { _ in
+            self.setAnnotation(type: .cgv)
+        }
+        let all = UIAlertAction(title: "전체보기", style: .default) { _ in
+            self.setAnnotation(type: .all)
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(mega)
+        alert.addAction(lotte)
+        alert.addAction(cgv)
+        alert.addAction(all)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
     }
 }

@@ -2,9 +2,7 @@
 import Foundation
 import UIKit
 
-/*
- TheaterList
- */
+
 
 struct Theater {
     let type: String
@@ -24,6 +22,6 @@ struct TheaterList {
     ]
 }
 
-/*
- Location Authorization Custom Alert
- */
+enum annotationType {
+    case all, lotte, mega, cgv
+}
